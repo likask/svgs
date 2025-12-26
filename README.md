@@ -1,3 +1,3 @@
 # Solvers SVGs
 
-![Eshelbiab Plastity](eg.svg)
+![Eshelbiab Plastity](ep.html)
