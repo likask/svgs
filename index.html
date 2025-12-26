@@ -1,26 +1,58 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Graph viewer</title>
   <style>
-    html, body { height: 100%; margin: 0; }
-    #wrap { height: 100vh; }
-    object { width: 100%; height: 100%; display: block; }
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    #wrap {
+      height: 100vh;
+    }
+
+    object {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
   </style>
 </head>
+
 <body>
   <div id="wrap">
-    <object id="svgObj" type="image/svg+xml" data="ep.svg"></object>
+    <object id="svgObj" type="image/svg+xml" data="ep.svg">
+      <p>
+        SVG failed to load.
+        <a href="eg.svg">Open the SVG directly</a>.
+      </p>
+    </object>
   </div>
+
 
   <!-- Pan/zoom controls -->
   <script src="https://unpkg.com/svg-pan-zoom/dist/svg-pan-zoom.min.js"></script>
   <script>
     const obj = document.getElementById('svgObj');
+
     obj.addEventListener('load', () => {
-      const svg = obj.contentDocument.querySelector('svg');
+      const doc = obj.contentDocument;
+      if (!doc) {
+        console.error("SVG didn't load. Check filename/path/case.");
+        return;
+      }
+
+      const svg = doc.querySelector('svg');
+      if (!svg) {
+        console.error("Loaded file is not an SVG (no <svg> root).");
+        return;
+      }
+
       svgPanZoom(svg, {
         zoomEnabled: true,
         controlIconsEnabled: true,
@@ -29,5 +61,8 @@
       });
     });
   </script>
+
+
 </body>
+
 </html>
