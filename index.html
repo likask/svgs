@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Graph viewer</title>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #wrap { height: 100vh; }
+    object { width: 100%; height: 100%; display: block; }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <object id="svgObj" type="image/svg+xml" data="ep.svg"></object>
+  </div>
+
+  <!-- Pan/zoom controls -->
+  <script src="https://unpkg.com/svg-pan-zoom/dist/svg-pan-zoom.min.js"></script>
+  <script>
+    const obj = document.getElementById('svgObj');
+    obj.addEventListener('load', () => {
+      const svg = obj.contentDocument.querySelector('svg');
+      svgPanZoom(svg, {
+        zoomEnabled: true,
+        controlIconsEnabled: true,
+        fit: true,
+        center: true
+      });
+    });
+  </script>
+</body>
+</html>
